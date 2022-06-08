@@ -2,11 +2,31 @@ import React, { useContext } from 'react';
 import Context from './Context';
 
 function Table() {
-  const { filteredData, setFilterByName } = useContext(Context);
+  const { filteredData,
+    setFilterByName,
+    setFilterColum,
+    setFilterOperator,
+    setFilterValue,
+    setFilterByNumericValues,
+    filterColum,
+    filterOperator,
+    filterValue,
+    filterByNumericValues,
+  } = useContext(Context);
 
   const handlePlanet = ({ target }) => {
     console.log('target', typeof target.value);
     setFilterByName(target.value.toLowerCase());
+  };
+
+  const handleFilterChoose = () => {
+    console.log('clicou');
+    const filterNumericValues = {
+      filterColum,
+      filterOperator,
+      filterValue,
+    };
+    setFilterByNumericValues([...filterByNumericValues, filterNumericValues]);
   };
 
   return (
@@ -18,6 +38,47 @@ function Table() {
           placeholder="Type Planet"
           onChange={ handlePlanet }
         />
+        <label htmlFor="colum">
+          Coluna
+          <select
+            id="colum"
+            name="colum"
+            data-testid="column-filter"
+            onChange={ ({ target }) => setFilterColum(target.value) }
+          >
+            <option>population</option>
+            <option>orbital_period</option>
+            <option>diameter</option>
+            <option>rotation_period</option>
+            <option>surface_water</option>
+          </select>
+        </label>
+        <label htmlFor="operator">
+          Operador
+          <select
+            id="operator"
+            name="operator"
+            data-testid="comparison-filter"
+            onChange={ ({ target }) => setFilterOperator(target.value) }
+          >
+            <option>maior que</option>
+            <option>menor que</option>
+            <option>igual a</option>
+          </select>
+        </label>
+        <input
+          type="number"
+          data-testid="value-filter"
+          placeholder="0"
+          onChange={ ({ target }) => setFilterValue(target.value) }
+        />
+        <button
+          type="button"
+          data-testid="button-filter"
+          onClick={ handleFilterChoose }
+        >
+          Filtrar
+        </button>
       </form>
       <table>
         <thead>
