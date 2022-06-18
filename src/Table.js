@@ -82,16 +82,18 @@ function Table() {
         </button>
       </form>
       {filterByNumericValues
-        .map((filter, index) => (<p
-          key={ `${filter.filterValue} ${index}` }
-        >
-          {
-            `${filter.filterColum}
-            ${filter.filterOperator}
-            ${filter.filterValue}`
-          }
-
-        </p>))}
+        .map((filter, index) => (
+          (
+            <p
+              key={ `${filter.filterValue} ${index}` }
+            >
+              {
+                `${filter.filterColum}
+                ${filter.filterOperator}
+                ${filter.filterValue}`
+              }
+            </p>)
+        ))}
       <table>
         <thead>
           <tr>
