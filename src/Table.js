@@ -15,18 +15,16 @@ function Table() {
   } = useContext(Context);
 
   const handlePlanet = ({ target }) => {
-    console.log('target', typeof target.value);
     setFilterByName(target.value.toLowerCase());
   };
 
   const handleFilterChoose = () => {
-    console.log('clicou');
     const filterNumericValues = {
       filterColum,
       filterOperator,
       filterValue,
     };
-    setFilterByNumericValues([...filterByNumericValues, filterNumericValues]);
+    setFilterByNumericValues([filterNumericValues]);
   };
 
   return (
@@ -43,6 +41,7 @@ function Table() {
           <select
             id="colum"
             name="colum"
+            value={ filterColum }
             data-testid="column-filter"
             onChange={ ({ target }) => setFilterColum(target.value) }
           >
@@ -58,6 +57,7 @@ function Table() {
           <select
             id="operator"
             name="operator"
+            value={ filterOperator }
             data-testid="comparison-filter"
             onChange={ ({ target }) => setFilterOperator(target.value) }
           >
@@ -68,6 +68,7 @@ function Table() {
         </label>
         <input
           type="number"
+          value={ filterValue }
           data-testid="value-filter"
           placeholder="0"
           onChange={ ({ target }) => setFilterValue(target.value) }
@@ -80,6 +81,17 @@ function Table() {
           Filtrar
         </button>
       </form>
+      {filterByNumericValues
+        .map((filter, index) => (<p
+          key={ `${filter.filterValue} ${index}` }
+        >
+          {
+            `${filter.filterColum}
+            ${filter.filterOperator}
+            ${filter.filterValue}`
+          }
+
+        </p>))}
       <table>
         <thead>
           <tr>

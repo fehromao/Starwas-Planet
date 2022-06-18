@@ -25,22 +25,24 @@ function ContextProvider({ children }) {
     const filterPlanet = data
       .filter((planet) => planet.name.toLowerCase().includes(filterByName));
 
-    filterByNumericValues.reduce((acumulador, currentValue) => acumulador
-      .filter((planet) => {
-        switch (currentValue.operator) {
-        case 'maior que':
-          return planet[currentValue.filterColum] > Number(planet.value);
-        case 'menor que':
-          return planet[currentValue.filterColum] < Number(planet.value);
-        case 'igual':
-          return planet[currentValue.filterColum] === Number(planet.value);
-        default:
-          return true;
-        }
-      }), filterPlanet);
-
     setFilteredData(filterPlanet);
-  }, [filterByName, filterByNumericValues]);
+  }, [filterByName]);
+
+  useEffect(() => {
+    const filterNumeric = data.filter((item) => {
+      switch (filterOperator) {
+      case 'maior que':
+        return item[filterColum] > Number(filterValue);
+      case 'menor que':
+        return item[filterColum] < Number(filterValue);
+      case 'igual a':
+        return item[filterColum] === filterValue;
+      default:
+        return true;
+      }
+    });
+    setFilteredData(filterNumeric);
+  }, [filterByNumericValues]);
 
   return (
     <main>
