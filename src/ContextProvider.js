@@ -29,7 +29,7 @@ function ContextProvider({ children }) {
   }, [filterByName]);
 
   useEffect(() => {
-    const filterNumeric = data.filter((item) => {
+    const filterNumeric = filteredData.filter((item) => {
       switch (filterOperator) {
       case 'maior que':
         return item[filterColum] > Number(filterValue);
