@@ -10,6 +10,9 @@ function ContextProvider({ children }) {
   const [filterOperator, setFilterOperator] = useState('maior que');
   const [filterValue, setFilterValue] = useState(0);
   const [filterByNumericValues, setFilterByNumericValues] = useState([]);
+  const [selectOptions, setSelectOptions] = useState(
+    ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
+  );
 
   useEffect(() => {
     const fetchPlanets = async () => {
@@ -58,6 +61,8 @@ function ContextProvider({ children }) {
             filterOperator,
             filterValue,
             filterByNumericValues,
+            selectOptions,
+            setSelectOptions,
           })
         }
       >

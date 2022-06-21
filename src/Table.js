@@ -12,6 +12,8 @@ function Table() {
     filterOperator,
     filterValue,
     filterByNumericValues,
+    selectOptions,
+    setSelectOptions,
   } = useContext(Context);
 
   const handlePlanet = ({ target }) => {
@@ -24,6 +26,8 @@ function Table() {
       filterOperator,
       filterValue,
     };
+
+    setSelectOptions(selectOptions.filter((e) => e !== filterColum));
     setFilterByNumericValues([filterNumericValues]);
   };
 
@@ -45,11 +49,10 @@ function Table() {
             data-testid="column-filter"
             onChange={ ({ target }) => setFilterColum(target.value) }
           >
-            <option>population</option>
-            <option>orbital_period</option>
-            <option>diameter</option>
-            <option>rotation_period</option>
-            <option>surface_water</option>
+            {selectOptions.map((item) => (
+              <option key={ item }>{ item }</option>
+            ))}
+
           </select>
         </label>
         <label htmlFor="operator">
